@@ -19,9 +19,9 @@ function App() {
       <MyNav />
       <Container>
         <Welcome />
-        <SingleBook book={history[0]} />
+        {/* <SingleBook className="single-book" book={history[0]} /> */}
         {/* <AllTheBooks /> */}
-        <BookList arrayOfBooks={history} />
+        <BookList arrayOfBooks={romance} />
       </Container>
       <MyFooter />
     </>
