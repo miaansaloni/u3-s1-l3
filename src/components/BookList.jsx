@@ -8,15 +8,14 @@ import Container from "react-bootstrap/Container";
 const BookList = function (props) {
   return (
     <Container>
-      <Row className="g-2">
-        {[
-          <SingleBook className="single-book" book={props.arrayOfBooks[0]} />,
-          ...props.arrayOfBooks.slice(1).map((b) => <SingleBook book={b} />),
-        ].map((singleBook, index) => (
-          <Col xs={12} md={4} key={index}>
-            {singleBook}
-          </Col>
-        ))}
+      <Row className="gy-3">
+        {props.arrayOfBooks.map((oneBook) => {
+          return (
+            <Col key={oneBook.asin} xs={12} md={4} lg={3}>
+              <SingleBook book={oneBook} />
+            </Col>
+          );
+        })}
       </Row>
     </Container>
   );

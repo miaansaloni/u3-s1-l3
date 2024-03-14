@@ -1,42 +1,31 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-
-// const SingleBook = function (props) {
-//   return (
-//     <Card className="book-cover d-flex flex-column">
-//       <Card.Body>
-//         <Card.Img variant="top" src={props.book.img} />
-//         <Card.Title>{props.book.title}</Card.Title>
-//       </Card.Body>
-//     </Card>
-//   );
-// };
-// export default SingleBook;
+import CommentArea from "./CommentArea";
 
 class SingleBook extends Component {
   state = {
     selected: false,
   };
 
-  handleClick = () => {
-    this.setState(({ selected }) => ({ selected: !selected }));
-  };
-
   render() {
-    const book = this.props.book;
-    const selected = this.state.selected;
-
-    const cardStyle = {
-      border: selected ? "2px solid red" : "none",
-    };
+    const { selected } = this.state;
+    const { book } = this.props;
 
     return (
-      <Card className="book-cover d-flex flex-column" style={cardStyle} onClick={this.handleClick}>
-        <Card.Body>
+      <div>
+        <Card
+          className="book-cover d-flex flex-column h-100"
+          onClick={() => this.setState({ selected: !selected })}
+          style={{ border: selected ? "3px solid red" : "none" }}
+        >
           <Card.Img variant="top" src={book.img} />
-          <Card.Title>{book.title}</Card.Title>
-        </Card.Body>
-      </Card>
+          <Card.Body>
+            <Card.Title>{book.title}</Card.Title>
+            <Card.Text>{book.price}$</Card.Text>
+          </Card.Body>
+        </Card>
+        {selected && <CommentArea bookId={this.props.bookId} />}
+      </div>
     );
   }
 }
