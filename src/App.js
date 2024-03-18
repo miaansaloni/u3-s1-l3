@@ -3,15 +3,11 @@ import "./App.css";
 import MyNav from "./components/MyNav";
 import MyFooter from "./components/MyFooter";
 import Welcome from "./components/Welcome";
-// import AllTheBooks from "./components/AllTheBooks";
-import SingleBook from "./components/SingleBook";
+// import AllTheBooks from './components/AllTheBooks'
+import { Container } from "react-bootstrap";
 import BookList from "./components/BookList";
-import Container from "react-bootstrap/Container";
+
 import fantasy from "./data/fantasy.json";
-import horror from "./data/horror.json";
-import history from "./data/history.json";
-import romance from "./data/romance.json";
-import scifi from "./data/horror.json";
 
 function App() {
   return (
@@ -19,9 +15,8 @@ function App() {
       <MyNav />
       <Container>
         <Welcome />
-        {/* <SingleBook className="single-book" book={history[0]} /> */}
         {/* <AllTheBooks /> */}
-        <BookList arrayOfBooks={romance} />
+        <BookList books={fantasy} />
       </Container>
       <MyFooter />
     </>

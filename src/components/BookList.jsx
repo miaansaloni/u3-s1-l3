@@ -1,24 +1,39 @@
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Component } from "react";
 import SingleBook from "./SingleBook";
-import Container from "react-bootstrap/Container";
+import { Col, Form, Row } from "react-bootstrap";
 
-// import fantasy from "./data/fantasy.json";
+class BookList extends Component {
+  state = {
+    searchQuery: "",
+  };
 
-const BookList = function (props) {
-  return (
-    <Container>
-      <Row className="g-2">
-        {[
-          <SingleBook className="single-book" book={props.arrayOfBooks[0]} />,
-          ...props.arrayOfBooks.slice(1).map((b) => <SingleBook book={b} />),
-        ].map((singleBook, index) => (
-          <Col xs={12} md={4} key={index}>
-            {singleBook}
+  render() {
+    return (
+      <>
+        <Row className="justify-content-center mt-5">
+          <Col xs={12} md={4} className="text-center">
+            <Form.Group>
+              <Form.Control
+                type="search"
+                placeholder="Cerca un libro"
+                value={this.state.searchQuery}
+                onChange={(e) => this.setState({ searchQuery: e.target.value })}
+              />
+            </Form.Group>
           </Col>
-        ))}
-      </Row>
-    </Container>
-  );
-};
+        </Row>
+        <Row className="g-2 mt-3">
+          {this.props.books
+            .filter((b) => b.title.toLowerCase().includes(this.state.searchQuery))
+            .map((b) => (
+              <Col xs={12} md={4} key={b.asin}>
+                <SingleBook book={b} />
+              </Col>
+            ))}
+        </Row>
+      </>
+    );
+  }
+}
+
 export default BookList;
