@@ -7,28 +7,63 @@ import Error from "./Error";
 class CommentArea extends Component {
   state = {
     comments: [],
-    isLoading: true,
+    isLoading: false,
     isError: false,
   };
 
-  componentDidMount = async () => {
-    try {
-      let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY4NDA5OWFiYWQyODAwMTliZDRkMWIiLCJpYXQiOjE3MTA3NjgyODEsImV4cCI6MTcxMTk3Nzg4MX0.vnphEXjF2MgmVFdeFyU4H6w4dz-Ze0BeIo_W3Qekc64",
-        },
+  // componentDidMount = async () => {
+  //   try {
+  //     let response = await fetch(
+  //       'https://striveschool-api.herokuapp.com/api/comments/' +
+  //         this.props.asin,
+  //       {
+  //         headers: {
+  //           Authorization:
+  //             'Bearer inserisci-qui-il-tuo-token',
+  //         },
+  //       }
+  //     )
+  //     console.log(response)
+  //     if (response.ok) {
+  //       let comments = await response.json()
+  //       this.setState({ comments: comments, isLoading: false, isError: false })
+  //     } else {
+  //       console.log('error')
+  //       this.setState({ isLoading: false, isError: true })
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setState({ isLoading: false, isError: true })
+  //   }
+  // }
+
+  componentDidUpdate = async (prevProps) => {
+    if (prevProps.asin !== this.props.asin) {
+      this.setState({
+        isLoading: true,
       });
-      console.log(response);
-      if (response.ok) {
-        let comments = await response.json();
-        this.setState({ comments: comments, isLoading: false, isError: false });
-      } else {
+      try {
+        let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin, {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY4NDA5OWFiYWQyODAwMTliZDRkMWIiLCJpYXQiOjE3MTA3NjgyODEsImV4cCI6MTcxMTk3Nzg4MX0.vnphEXjF2MgmVFdeFyU4H6w4dz-Ze0BeIo_W3Qekc64",
+          },
+        });
+        console.log(response);
+        if (response.ok) {
+          let comments = await response.json();
+          this.setState({
+            comments: comments,
+            isLoading: false,
+            isError: false,
+          });
+        } else {
+          this.setState({ isLoading: false, isError: true });
+        }
+      } catch (error) {
+        console.log(error);
         this.setState({ isLoading: false, isError: true });
       }
-    } catch (error) {
-      console.log(error);
-      this.setState({ isLoading: false, isError: true });
     }
   };
 
