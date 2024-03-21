@@ -21,8 +21,8 @@ const CommentArea = ({ asin }) => {
           },
         });
         if (response.ok) {
-          const commentsData = await response.json();
-          setComments(commentsData);
+          const comments = await response.json();
+          setComments(comments);
           setIsLoading(false);
           setIsError(false);
         } else {
